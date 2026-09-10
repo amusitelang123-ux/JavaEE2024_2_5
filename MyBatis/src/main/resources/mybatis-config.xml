@@ -16,5 +16,6 @@
     </environments>
     <mappers>
         <mapper resource="cn/edu/lingnan/mapper/StudentMapper.xml"/>
+        <mapper resource="cn/edu/lingnan/mapper/TeacherMapper.xml"/>
     </mappers>
 </configuration>

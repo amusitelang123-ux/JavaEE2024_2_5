@@ -10,12 +10,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Student {
-    private String sid;
-    private String sname;
-    private String spassword;
-    private int sright;
-    private int sflag;
+public class Teacher {
+    int tid;
+    String tname;
+    String tpassword;
+    int tright;
+    int tflag;
 }
-
-
