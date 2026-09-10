@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface StudentMapper {
     public List<Student> queryStudentAll();
+    public Student queryStudentBySid(String _sid);
 
 }

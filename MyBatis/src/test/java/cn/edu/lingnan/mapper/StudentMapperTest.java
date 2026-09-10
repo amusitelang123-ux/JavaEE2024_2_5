@@ -34,6 +34,10 @@ public class StudentMapperTest {
         }
     }
 
+    @Test
+    public void queryStudentBySidTest(){
+        System.out.println(studentService.queryStudentBySid("s01").toString());
+    }
 
 
 }

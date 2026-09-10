@@ -6,4 +6,7 @@
     <select id="queryStudentAll" resultType="cn.edu.lingnan.pojo.Student">
         select * from student
     </select>
+    <select id="queryStudentBySid" resultType="cn.edu.lingnan.pojo.Student" parameterType="String">
+        select * from student where sid = #{_sid}
+    </select>
 </mapper>
