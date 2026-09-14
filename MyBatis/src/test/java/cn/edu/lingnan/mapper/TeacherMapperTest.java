@@ -18,7 +18,7 @@ public class TeacherMapperTest {
 
     @Test
     public void queryTeacherByNameTest(){
-        for (Teacher teacher : teacherService.queryTeacherByName("Lo")) {
+        for (Teacher teacher : teacherService.queryTeacherByName("Lao")) {
             System.out.println(teacher.toString());
         }
     }

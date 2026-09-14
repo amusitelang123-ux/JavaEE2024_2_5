@@ -3,10 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.lingnan.mapper.TeacherMapper">
-    <select id="queryTeacherAll" resultType="cn.edu.lingnan.pojo.Teacher">
+    <select id="queryTeacherAll" resultType="teacher">
         select * from teacher
     </select>
-    <select id="queryTeacherByName" resultType="cn.edu.lingnan.pojo.Teacher">
+    <select id="queryTeacherByName" resultType="teacher">
         select * from teacher where tname like concat('%', #{_tname}, '%')
     </select>
 </mapper>

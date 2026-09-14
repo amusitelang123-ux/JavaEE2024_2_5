@@ -39,5 +39,10 @@ public class StudentMapperTest {
         System.out.println(studentService.queryStudentBySid("s01").toString());
     }
 
+    @Test
+    public void queryStudentBySnameAndSpasswordTest(){
+        System.out.println(studentService.queryStudentBySnameAndSpassword("admin", "admin").toString());
+    }
+
 
 }

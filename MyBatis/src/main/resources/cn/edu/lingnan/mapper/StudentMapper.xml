@@ -3,10 +3,14 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.lingnan.mapper.StudentMapper">
-    <select id="queryStudentAll" resultType="cn.edu.lingnan.pojo.Student">
+    <select id="queryStudentAll" resultType="student">
         select * from student
     </select>
-    <select id="queryStudentBySid" resultType="cn.edu.lingnan.pojo.Student" parameterType="String">
+    <select id="queryStudentBySid" resultType="student" parameterType="String">
         select * from student where sid = #{_sid}
     </select>
+    <select id="queryStudentBySnameAndSpassword" resultType="student">
+        select * from student where sname = #{_sname} and spassword = #{_spassword}
+    </select>
+    <cache/>
 </mapper>

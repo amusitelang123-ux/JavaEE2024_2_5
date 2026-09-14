@@ -43,4 +43,14 @@ public class StudentServiceImpl implements StudentService {
         }
         return student;
     }
+
+    @Override
+    public Student queryStudentBySnameAndSpassword(String _sname, String _spassword) {
+        Student student = null;
+        try(SqlSession session = MyBatisUtil.getSqlSession()) {
+            StudentMapper mapper = session.getMapper(StudentMapper.class);
+            student = mapper.queryStudentBySnameAndSpassword(_sname, _spassword);
+        }
+        return student;
+    }
 }
