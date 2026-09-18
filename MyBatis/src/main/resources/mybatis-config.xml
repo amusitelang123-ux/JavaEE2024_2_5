@@ -27,5 +27,8 @@
     <mappers>
         <mapper resource="cn/edu/lingnan/mapper/StudentMapper.xml"/>
         <mapper resource="cn/edu/lingnan/mapper/TeacherMapper.xml"/>
+        <mapper resource="cn/edu/lingnan/mapper/CourseMapper.xml"/>
+        <mapper resource="cn/edu/lingnan/mapper/ScoreMapper.xml"/>
+        <mapper resource="cn/edu/lingnan/mapper/TimeTableMapper.xml"/>
     </mappers>
 </configuration>

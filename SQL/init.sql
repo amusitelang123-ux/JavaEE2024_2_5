@@ -36,7 +36,7 @@ tright int(1) not null,
 tflag int(1) not null
 );
 
-CREATE TABLE timeable(
+CREATE TABLE timetable(
 tid int,
 cid VARCHAR(3),
 classroom VARCHAR(20) not null,

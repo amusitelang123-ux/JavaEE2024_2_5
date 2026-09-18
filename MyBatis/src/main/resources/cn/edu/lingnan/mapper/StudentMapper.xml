@@ -12,5 +12,22 @@
     <select id="queryStudentBySnameAndSpassword" resultType="student">
         select * from student where sname = #{_sname} and spassword = #{_spassword}
     </select>
+    <insert id="insertStudent" parameterType="student">
+        insert into student(sid, sname, spassword, sright, sflag)
+        values (#{sid}, #{sname}, #{spassword}, #{sright}, #{sflag})
+    </insert>
+    <update id="updateStudent" parameterType="student">
+        update student
+        set sname=#{sname},spassword=#{spassword},sright=#{sright},sflag=#{sflag}
+        where sid=#{sid}
+    </update>
+    <update id="updateStudentPassword" parameterType="map">
+        update student
+        set spassword=#{spassword}
+        where sid=#{sid}
+    </update>
+    <delete id="deleteStudentBySid" parameterType="string">
+        delete from student where sid = #{sid}
+    </delete>
     <cache/>
 </mapper>
