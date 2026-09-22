@@ -29,5 +29,42 @@
     <delete id="deleteStudentBySid" parameterType="string">
         delete from student where sid = #{sid}
     </delete>
+    <select id="queryStudentUseIf" parameterType="map" resultType="student">
+        select * from student
+        <where>
+            <choose>
+                <when test="sname != null">
+                    sname like concat('%',#{sname},'%')
+                </when>
+                <when test="sright != null">
+                    and sright = #{sright}
+                </when>
+                <when test="sflag != null">
+                    and sflag = #{sflag}
+                </when>
+                <otherwise>
+                    1 = 1
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+    <update id="updateStudentUseSet" parameterType="map">
+        update student
+        <set>
+            <if test="sname != null">
+                sname = #{sname},
+            </if>
+            <if test="spassword != null">
+                spassword = #{spassword},
+            </if>
+            <if test="sright != null">
+                sright = #{sright},
+            </if>
+            <if test="sflag != null">
+                sflag = #{sflag}
+            </if>
+        </set>
+        where sid = #{sid}
+    </update>
     <cache/>
 </mapper>

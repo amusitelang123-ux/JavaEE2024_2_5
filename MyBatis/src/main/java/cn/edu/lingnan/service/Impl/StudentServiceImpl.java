@@ -118,4 +118,25 @@ public class StudentServiceImpl implements StudentService {
         }
         return flag;
     }
+
+    @Override
+    public List<Student> queryStudentUseIf(Map<String, Object> _map) {
+        List<Student> list = null;
+        try(SqlSession session = MyBatisUtil.getSqlSession()) {
+            StudentMapper mapper = session.getMapper(StudentMapper.class);
+            list = mapper.queryStudentUseIf(_map);
+        }
+        return list;
+    }
+
+    @Override
+    public int updateStudentUseSet(Map<String, Object> _map) {
+        int flag = 0;
+        try(SqlSession session = MyBatisUtil.getSqlSession()) {
+            StudentMapper mapper = session.getMapper(StudentMapper.class);
+            flag = mapper.updateStudentUseSet(_map);
+            session.commit();
+        }
+        return flag;
+    }
 }

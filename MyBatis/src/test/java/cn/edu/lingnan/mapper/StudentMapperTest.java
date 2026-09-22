@@ -77,5 +77,25 @@ public class StudentMapperTest {
         System.out.println(studentService.deleteStudentBySid("s06"));
     }
 
+    @Test
+    public void queryStudentUseIfTest(){
+        Map<String,Object> map=new HashMap<>();
+        map.put("sname","ao");
+        map.put("sright",0);
+        map.put("sflag",1);
+        System.out.println(studentService.queryStudentUseIf(map).toString());
+    }
+
+    @Test
+    public void updateStudentUseSetTest(){
+        Map<String,Object> map=new HashMap<>();
+        map.put("sid","s05");
+        map.put("sname","cxk");
+        map.put("spassword","cxk1234");
+        map.put("sright",0);
+        map.put("sflag",1);
+        System.out.println(studentService.updateStudentUseSet(map));
+    }
+
 
 }

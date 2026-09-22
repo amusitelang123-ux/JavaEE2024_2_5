@@ -13,4 +13,6 @@ public interface StudentService {
     public int updateStudent(Student _student);
     public int updateStudentPassword(Map<String, Object> _map);
     public int deleteStudentBySid(String _sid);
+    public List<Student> queryStudentUseIf(Map<String, Object> _map);
+    public int updateStudentUseSet(Map<String, Object> _map);
 }
