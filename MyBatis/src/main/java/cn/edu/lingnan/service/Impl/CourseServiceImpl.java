@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class CourseServiceImpl implements CourseService {
     @Override
@@ -60,5 +61,26 @@ public class CourseServiceImpl implements CourseService {
             list = mapper.queryCourseByCname(_cname);
         }
         return list;
+    }
+
+    @Override
+    public List<Course> queryCourseUseIf(Map<String, Object> _map) {
+        List<Course> list = new ArrayList<>();
+        try(SqlSession session = MyBatisUtil.getSqlSession()){
+            CourseMapper mapper = session.getMapper(CourseMapper.class);
+            list = mapper.queryCourseUseIf(_map);
+        }
+        return list;
+    }
+
+    @Override
+    public int updateCourseUseSet(Map<String, Object> _map) {
+        int flag = 0;
+        try(SqlSession session = MyBatisUtil.getSqlSession()){
+            CourseMapper mapper = session.getMapper(CourseMapper.class);
+            flag = mapper.updateCourseUseSet(_map);
+            session.commit();
+        }
+        return flag;
     }
 }

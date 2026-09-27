@@ -5,6 +5,9 @@ import cn.edu.lingnan.service.CourseService;
 import cn.edu.lingnan.service.Impl.CourseServiceImpl;
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class CourseMapperTest {
     CourseService courseService=new CourseServiceImpl();
@@ -36,5 +39,22 @@ public class CourseMapperTest {
     @Test
     public void queryCourseByCnameTest(){
         System.out.println(courseService.queryCourseByCname("Java").toString());
+    }
+
+    @Test
+    public void queryCourseUseIfTest(){
+        Map<String,Object> map=new HashMap<>();
+//        map.put("cname","J");
+        map.put("cflag","1");
+        System.out.println(courseService.queryCourseUseIf(map).toString());
+    }
+
+    @Test
+    public void updateCourseUseSetTest(){
+        Map<String,Object> map=new HashMap<>();
+        map.put("cid","c06");
+//        map.put("cname","PHP");
+        map.put("cflag",0);
+        System.out.println(courseService.updateCourseUseSet(map));
     }
 }

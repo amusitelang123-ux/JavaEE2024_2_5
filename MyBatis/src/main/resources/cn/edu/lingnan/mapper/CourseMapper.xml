@@ -3,8 +3,31 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.lingnan.mapper.CourseMapper">
-    <delete id="deleteCourseByCid" parameterType="string">
-        delete from course where cid = #{_sid}
-    </delete>
     <cache/>
+    <select id="queryCourseUseIf" parameterType="map" resultType="course">
+        select * from course
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="cname != null">
+                cname like concat('%',#{cname},'%')
+            </if>
+            <if test="cflag != null">
+                and cflag = #{cflag}
+            </if>
+        </trim>
+    </select>
+
+    <update id="updateCourseUseSet" parameterType="map">
+        update course
+        <trim prefix="set" suffixOverrides=",">
+            <if test="cname != null">
+                cname = #{cname},
+            </if>
+            <if test="cflag != null">
+                cflag = #{cflag}
+            </if>
+        </trim>
+        where cid = #{cid}
+    </update>
+
+
 </mapper>
