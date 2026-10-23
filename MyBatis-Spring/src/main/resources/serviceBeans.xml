@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		https://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--    <import resource="spring-jdbc.xml"/>-->
+    <bean id="studentService" class="cn.edu.lingnan.service.Impl.StudentServiceImpl">
+        <property name="sqlSessionTemplate" ref="sqlSessionTemplate"/>
+    </bean>
+
+    <bean id="courseService" class="cn.edu.lingnan.service.Impl.CourseServiceImpl"
+          autowire="byName"/>
+
+    <bean id="scoreService" class="cn.edu.lingnan.service.Impl.ScoreServiceImpl"/>
+    <bean id="teacherService" class="cn.edu.lingnan.service.Impl.TeacherServiceImpl"/>
+    <bean id="timeTableService" class="cn.edu.lingnan.service.Impl.TimeTableServiceImpl"/>
+
+
+
+
+</beans>

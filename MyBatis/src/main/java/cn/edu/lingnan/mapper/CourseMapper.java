@@ -1,6 +1,8 @@
 package cn.edu.lingnan.mapper;
 
 import cn.edu.lingnan.pojo.Course;
+import cn.edu.lingnan.pojo.CourseExtend;
+import cn.edu.lingnan.pojo.CourseTeacherTimeTable;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
@@ -22,6 +24,9 @@ public interface CourseMapper {
     public int updateCourse(Course _course);
     @Select("select * from course where cname like concat('%',#{_cname},'%')")
     public List<Course> queryCourseByCname(String _cname);
+    public Map<String,Object> queryInfoByCid01(String _cid);
+    public List<CourseTeacherTimeTable> queryInfoByCid02(String _cid);
+    public List<CourseExtend> queryInfoByCid03(String _cid);
     //动态SQL
     public List<Course> queryCourseUseIf(Map<String,Object> _map);
     public int updateCourseUseSet(Map<String,Object> _map);

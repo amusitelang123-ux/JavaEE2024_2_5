@@ -12,5 +12,6 @@ public interface ScoreService {
     public int updateScoreBySidAndCid(Map<String,Object> _map);
     public List<Score> queryScore(Map<String,Object> _map);
     public int deleteScoreBySid(String _sid);
+    public List<Score> queryScoreAll();
 }
 

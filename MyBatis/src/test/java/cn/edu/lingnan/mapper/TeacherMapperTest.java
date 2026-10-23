@@ -33,7 +33,7 @@ public class TeacherMapperTest {
 
     @Test
     public void deleteTeacherByTidTest(){
-        System.out.println(teacherService.deleteTeacherByTid(6));
+        System.out.println(teacherService.deleteTeacherByTid(5));
     }
 
     @Test
@@ -45,9 +45,9 @@ public class TeacherMapperTest {
     @Test
     public void updateTeacherByTidTest(){
         Map<String,Object> map = new HashMap<>();
-        map.put("tid",8);
-//        map.put("tname","kebi3");
-//        map.put("spassword","123");
+        map.put("tid",6);
+        map.put("tname","kebi3");
+        map.put("spassword","123");
         map.put("tright",0);
         map.put("tflag",0);
         System.out.println(teacherService.updateTeacherByTid(map));
@@ -56,9 +56,9 @@ public class TeacherMapperTest {
     @Test
     public void queryTeacherTest(){
         Map<String,Object> map = new HashMap<>();
-        map.put("tname","可");
-//        map.put("tright",1);
-//        map.put("tflag",0);
+        map.put("tname","ke");
+        map.put("tright",0);
+        map.put("tflag",0);
         System.out.println(teacherService.queryTeacher(map).toString());
     }
 }

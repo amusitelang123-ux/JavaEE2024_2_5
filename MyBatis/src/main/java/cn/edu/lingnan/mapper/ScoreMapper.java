@@ -23,6 +23,8 @@ public interface ScoreMapper {
     public List<Score> queryScoreByCid(String _cid);
     @Insert("insert into score values (#{sid},#{cid},#{score},#{scflag})")
     public int insertScore(Score _score);
+    @Select("select * from score")
+    public List<Score> queryScoreAll();
     //动态SQL
     public int updateScoreBySidAndCid(Map<String,Object> _map);
     public List<Score> queryScore(Map<String,Object> _map);

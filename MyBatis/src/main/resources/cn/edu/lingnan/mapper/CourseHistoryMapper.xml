@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.lingnan.mapper.CourseHistoryMapper">
+    <cache/>
+    <select id="queryCourseUseIf" parameterType="map" resultType="course">
+        select * from coursehistory
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="cname != null">
+                cname like concat('%',#{cname},'%')
+            </if>
+            <if test="cflag != null">
+                and cflag = #{cflag}
+            </if>
+        </trim>
+    </select>
+
+</mapper>

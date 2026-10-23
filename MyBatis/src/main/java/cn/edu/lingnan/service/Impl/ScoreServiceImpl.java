@@ -1,5 +1,6 @@
 package cn.edu.lingnan.service.Impl;
 
+import cn.edu.lingnan.mapper.ScoreHistoryMapper;
 import cn.edu.lingnan.mapper.ScoreMapper;
 import cn.edu.lingnan.pojo.Score;
 import cn.edu.lingnan.service.ScoreService;
@@ -68,9 +69,24 @@ public class ScoreServiceImpl implements ScoreService {
         int flag = 0;
         try(SqlSession session = MyBatisUtil.getSqlSession()) {
             ScoreMapper scoreMapper = session.getMapper(ScoreMapper.class);
+            ScoreHistoryMapper  scoreHistoryMapper = session.getMapper(ScoreHistoryMapper.class);
+            List<Score> list = scoreMapper.queryScoreBySid(_sid);
             flag = scoreMapper.deleteScoreBySid(_sid);
+            for (Score score : list) {
+                scoreHistoryMapper.insertScore(score);
+            }
             session.commit();
         }
         return flag;
+    }
+
+    @Override
+    public List<Score> queryScoreAll() {
+        List<Score> list= null;
+        try(SqlSession session = MyBatisUtil.getSqlSession()) {
+            ScoreMapper scoreMapper = session.getMapper(ScoreMapper.class);
+            list = scoreMapper.queryScoreAll();
+        }
+        return list;
     }
 }

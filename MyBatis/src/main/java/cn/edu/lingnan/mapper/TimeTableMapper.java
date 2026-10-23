@@ -25,6 +25,8 @@ public interface TimeTableMapper {
     public List<TimeTable> queryTimeTableByCid(String _cid);
     @Insert("insert into timetable values (#{tid},#{cid},#{classroom},#{classtime},#{ttflag})")
     public int insertTimeTable(TimeTable _timeTable);
+    @Select("select tid from timetable where cid = #{_cid}")
+    public List<Integer> queryTimeTableTidByCid(String _cid);
     //动态SQL
     public int updateTimeTableByTidAndCid(Map<String,Object> _map);
     public List<TimeTable> queryTimeTable(Map<String,Object> _map);

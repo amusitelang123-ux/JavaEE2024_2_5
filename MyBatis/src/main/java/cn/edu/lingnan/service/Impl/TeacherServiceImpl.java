@@ -1,7 +1,10 @@
 package cn.edu.lingnan.service.Impl;
 
 import cn.edu.lingnan.mapper.*;
+import cn.edu.lingnan.pojo.Course;
+import cn.edu.lingnan.pojo.Score;
 import cn.edu.lingnan.pojo.Teacher;
+import cn.edu.lingnan.pojo.TimeTable;
 import cn.edu.lingnan.service.TeacherService;
 import cn.edu.lingnan.util.MyBatisUtil;
 import org.apache.ibatis.session.SqlSession;
@@ -50,11 +53,22 @@ public class TeacherServiceImpl implements TeacherService {
             CourseMapper  courseMapper = session.getMapper(CourseMapper.class);
             ScoreMapper scoreMapper = session.getMapper(ScoreMapper.class);
 
+            TeacherHistoryMapper  teacherHistoryMapper = session.getMapper(TeacherHistoryMapper.class);
+            TimeTableHistoryMapper timeTableHistoryMapper = session.getMapper(TimeTableHistoryMapper.class);
+            CourseHistoryMapper courseHistoryMapper = session.getMapper(CourseHistoryMapper.class);
+            ScoreHistoryMapper scoreHistoryMapper = session.getMapper(ScoreHistoryMapper.class);
+
             List<String> delCids = new ArrayList<>();
             List<String> tempCids = timeTableMapper.queryTimeTableCidByTid(_tid);
+            Teacher delTeacher = teacherMapper.queryTeacherByTid(_tid);
+            List<TimeTable> delTimeTables = timeTableMapper.queryTimeTableByTid(_tid);
+            List<Course> delCourses = new ArrayList<>();
+            List<Score> delScores = new ArrayList<>();
             for (String cid : tempCids){
                 if (timeTableMapper.queryTimeTableNumByCid(cid) == 1){
                     delCids.add(cid);
+                    delCourses.add(courseMapper.queryCourseByCid(cid));
+                    delScores.addAll(scoreMapper.queryScoreByCid(cid));
                 }
             }
             timeTableMapper.deleteTimeTableByTid(_tid);
@@ -63,6 +77,18 @@ public class TeacherServiceImpl implements TeacherService {
                 scoreMapper.deleteScoreByCid(cid);
                 flag = courseMapper.deleteCourseByCid(cid);
             }
+
+            teacherHistoryMapper.insertTeacher(delTeacher);
+            for (TimeTable timeTable : delTimeTables) {
+                timeTableHistoryMapper.insertTimeTable(timeTable);
+            }
+            for (Course course : delCourses) {
+                courseHistoryMapper.insertCourse(course);
+            }
+            for (Score score : delScores) {
+                scoreHistoryMapper.insertScore(score);
+            }
+
             session.commit();
         }
         return flag;

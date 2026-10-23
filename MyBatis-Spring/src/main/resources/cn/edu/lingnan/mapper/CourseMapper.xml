@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.lingnan.mapper.CourseMapper">
+    <cache/>
+    <select id="queryCourseUseIf" parameterType="map" resultType="course">
+        select * from course
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="cname != null">
+                cname like concat('%',#{cname},'%')
+            </if>
+            <if test="cflag != null">
+                and cflag = #{cflag}
+            </if>
+        </trim>
+    </select>
+
+    <update id="updateCourseUseSet" parameterType="map">
+        update course
+        <trim prefix="set" suffixOverrides=",">
+            <if test="cname != null">
+                cname = #{cname},
+            </if>
+            <if test="cflag != null">
+                cflag = #{cflag}
+            </if>
+        </trim>
+        where cid = #{cid}
+    </update>
+
+    <select id="queryInfoByCid01" resultType="map" parameterType="string">
+        select *
+        from timetable as tt
+        inner join teacher as t on tt.tid = t.tid
+        inner join course as c on tt.cid = c.cid
+        where tt.cid = #{_cid}
+    </select>
+
+    <select id="queryInfoByCid02" resultType="courseTeacherTimeTable" parameterType="string">
+        select *
+        from timetable as tt
+        inner join teacher as t on tt.tid = t.tid
+        inner join course as c on tt.cid = c.cid
+        where tt.cid = #{_cid}
+    </select>
+
+    <select id="queryInfoByCid03" parameterType="string" resultMap="mymap01">
+        select
+            c.cid as course_cid,
+            c.cname as course_cname,
+            c.cflag as course_cflag,
+            t.tid as teacher_tid,
+            t.tname as teacher_tname,
+            t.tpassword as teacher_tpassword,
+            t.tright as teacher_tright,
+            t.tflag as teacher_tflag,
+            tt.tid as timetable_tid,
+            tt.cid as timetable_cid,
+            tt.classroom as timetable_classroom,
+            tt.classtime as timetable_classtime,
+            tt.ttflag as timetable_ttflag
+        from timetable as tt
+        inner join teacher as t on tt.tid = t.tid
+        inner join course as c on tt.cid = c.cid
+        where tt.cid = #{_cid}
+    </select>
+    <resultMap id="mymap01" type="courseExtend">
+        <result column="course_cid" property="cid"/>
+        <result column="course_cname" property="cname"/>
+<!--        <result column="course_cflag" property="cflag"/>-->
+        <result column="teacher_tid" property="teacher.tid"/>
+        <result column="teacher_tname" property="teacher.tname"/>
+<!--        <result column="teacher_tpassword" property="teacher.tpassword"/>-->
+<!--        <result column="teacher_tright" property="teacher.tright"/>-->
+<!--        <result column="teacher_tfalg" property="teacher.tflag"/>-->
+<!--        <result column="timeTable_tid" property="timeTable.tid"/>-->
+<!--        <result column="timeTable_cid" property="timeTable.cid"/>-->
+        <result column="timeTable_classroom" property="timeTable.classroom"/>
+        <result column="timeTable_classtime" property="timeTable.classtime"/>
+<!--        <result column="timeTable_ttflag" property="timeTable.ttflag"/>-->
+    </resultMap>
+</mapper>

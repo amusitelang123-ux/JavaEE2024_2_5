@@ -1,10 +1,10 @@
 package cn.edu.lingnan.service.Impl;
 
-import cn.edu.lingnan.mapper.CourseMapper;
-import cn.edu.lingnan.mapper.ScoreMapper;
-import cn.edu.lingnan.mapper.StudentMapper;
-import cn.edu.lingnan.mapper.TimeTableMapper;
+import cn.edu.lingnan.mapper.*;
+import cn.edu.lingnan.pojo.Course;
+import cn.edu.lingnan.pojo.Score;
 import cn.edu.lingnan.pojo.Student;
+import cn.edu.lingnan.pojo.TimeTable;
 import cn.edu.lingnan.service.StudentService;
 import cn.edu.lingnan.util.MyBatisUtil;
 import org.apache.ibatis.io.Resources;
@@ -100,12 +100,22 @@ public class StudentServiceImpl implements StudentService {
             CourseMapper  courseMapper = session.getMapper(CourseMapper.class);
             ScoreMapper  scoreMapper = session.getMapper(ScoreMapper.class);
             TimeTableMapper timeTableMapper = session.getMapper(TimeTableMapper.class);
+            StudentHistoryMapper  studentHistoryMapper = session.getMapper(StudentHistoryMapper.class);
+            CourseHistoryMapper  courseHistoryMapper = session.getMapper(CourseHistoryMapper.class);
+            ScoreHistoryMapper  scoreHistoryMapper = session.getMapper(ScoreHistoryMapper.class);
+            TimeTableHistoryMapper  timeTableHistoryMapper = session.getMapper(TimeTableHistoryMapper.class);
 
             List<String> delCids = new ArrayList<>();
             List<String> tempCids = scoreMapper.queryScoreCidBySid(_sid);
+            Student delStudent = studentMapper.queryStudentBySid(_sid);
+            List<Course> delCourses = new ArrayList<>();
+            List<Score> delScores = scoreMapper.queryScoreBySid(_sid);
+            List<TimeTable> delTimeTables = new ArrayList<>();
             for (String cid : tempCids) {
                 if (scoreMapper.queryScoreNumByCid(cid) == 1) {
                     delCids.add(cid);
+                    delCourses.add(courseMapper.queryCourseByCid(cid));
+                    delTimeTables.addAll(timeTableMapper.queryTimeTableByCid(cid));
                 }
             }
             scoreMapper.deleteScoreBySid(_sid);
@@ -114,6 +124,18 @@ public class StudentServiceImpl implements StudentService {
                 timeTableMapper.deleteTimeTableByCid(cid);
                 flag = courseMapper.deleteCourseByCid(cid);
             }
+
+            studentHistoryMapper.insertStudent(delStudent);
+            for (Course course : delCourses) {
+                courseHistoryMapper.insertCourse(course);
+            }
+            for (Score score : delScores) {
+                scoreHistoryMapper.insertScore(score);
+            }
+            for (TimeTable timeTable : delTimeTables) {
+                timeTableHistoryMapper.insertTimeTable(timeTable);
+            }
+
             session.commit();
         }
         return flag;

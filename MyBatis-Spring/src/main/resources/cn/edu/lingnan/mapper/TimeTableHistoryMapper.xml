@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.lingnan.mapper.TimeTableHistoryMapper">
+    <cache/>
+    <select id="queryTimeTable" parameterType="map" resultType="timetable">
+        select * from timetablehistory
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="tid != null">
+                tid = #{tid}
+            </if>
+            <if test="cid != null">
+                and cid = #{cid}
+            </if>
+            <if test="classroom != null">
+                and classroom = #{classroom}
+            </if>
+            <if test="classtime != null">
+                and classtime = #{classtime}
+            </if>
+            <if test="ttflag != null">
+                and ttflag = #{ttflag}
+            </if>
+        </trim>
+    </select>
+</mapper>

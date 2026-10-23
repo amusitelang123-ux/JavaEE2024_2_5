@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.lingnan.mapper.StudentMapper">
+<!--    <select id="queryStudentAll" resultType="student">-->
+<!--        select * from student-->
+<!--    </select>-->
+<!--    <select id="queryStudentBySid" resultType="student" parameterType="String">-->
+<!--        select * from student where sid = #{_sid}-->
+<!--    </select>-->
+<!--    <select id="queryStudentBySnameAndSpassword" resultType="student">-->
+<!--        select * from student where sname = #{_sname} and spassword = #{_spassword}-->
+<!--    </select>-->
+<!--    <insert id="insertStudent" parameterType="student">-->
+<!--        insert into student(sid, sname, spassword, sright, sflag)-->
+<!--        values (#{sid}, #{sname}, #{spassword}, #{sright}, #{sflag})-->
+<!--    </insert>-->
+<!--    <update id="updateStudent" parameterType="student">-->
+<!--        update student-->
+<!--        set sname=#{sname},spassword=#{spassword},sright=#{sright},sflag=#{sflag}-->
+<!--        where sid=#{sid}-->
+<!--    </update>-->
+<!--    <update id="updateStudentPassword" parameterType="map">-->
+<!--        update student-->
+<!--        set spassword=#{spassword}-->
+<!--        where sid=#{sid}-->
+<!--    </update>-->
+<!--    <delete id="deleteStudentBySid" parameterType="string">-->
+<!--        delete from student where sid = #{sid}-->
+<!--    </delete>-->
+
+    <sql id="mysql01">
+        <if test="sname != null">
+            sname like concat('%',#{sname},'%')
+        </if>
+        <if test="sright != null">
+            and sright = #{sright}
+        </if>
+        <if test="sflag != null">
+            and sflag = #{sflag}
+        </if>
+    </sql>
+
+    <select id="queryStudentUseIf" parameterType="map" resultType="student">
+        select * from student
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <include refid="mysql01"/>
+        </trim>
+<!--        <where>-->
+<!--            <choose>-->
+<!--                <when test="sname != null">-->
+<!--                    sname like concat('%',#{sname},'%')-->
+<!--                </when>-->
+<!--                <when test="sright != null">-->
+<!--                    and sright = #{sright}-->
+<!--                </when>-->
+<!--                <when test="sflag != null">-->
+<!--                    and sflag = #{sflag}-->
+<!--                </when>-->
+<!--                <otherwise>-->
+<!--                    1 = 1-->
+<!--                </otherwise>-->
+<!--            </choose>-->
+<!--        </where>-->
+    </select>
+    <update id="updateStudentUseSet" parameterType="map">
+        update student
+        <trim prefix="set" suffixOverrides=",">
+            <if test="sname != null">
+                sname = #{sname},
+            </if>
+            <if test="spassword != null">
+                spassword = #{spassword},
+            </if>
+            <if test="sright != null">
+                sright = #{sright},
+            </if>
+            <if test="sflag != null">
+                sflag = #{sflag}
+            </if>
+        </trim>
+        where sid = #{sid}
+    </update>
+    <cache/>
+</mapper>
