@@ -30,5 +30,11 @@
         <mapper resource="cn/edu/lingnan/mapper/CourseMapper.xml"/>
         <mapper resource="cn/edu/lingnan/mapper/ScoreMapper.xml"/>
         <mapper resource="cn/edu/lingnan/mapper/TimeTableMapper.xml"/>
+
+        <mapper resource="cn/edu/lingnan/mapper/StudentHistoryMapper.xml"/>
+        <mapper resource="cn/edu/lingnan/mapper/TeacherHistoryMapper.xml"/>
+        <mapper resource="cn/edu/lingnan/mapper/CourseHistoryMapper.xml"/>
+        <mapper resource="cn/edu/lingnan/mapper/ScoreHistoryMapper.xml"/>
+        <mapper resource="cn/edu/lingnan/mapper/TimeTableHistoryMapper.xml"/>
     </mappers>
 </configuration>

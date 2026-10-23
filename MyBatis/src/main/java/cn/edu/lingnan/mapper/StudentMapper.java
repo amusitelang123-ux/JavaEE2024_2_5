@@ -30,5 +30,4 @@ public interface StudentMapper {
     //动态SQL
     public List<Student> queryStudentUseIf(Map<String, Object> _map);
     public int updateStudentUseSet(Map<String, Object> _map);
-    public List<Student> queryStudentUseForeach(Map<String, Object> _map);
 }

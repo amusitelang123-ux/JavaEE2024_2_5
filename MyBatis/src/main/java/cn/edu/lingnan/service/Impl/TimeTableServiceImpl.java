@@ -1,5 +1,6 @@
 package cn.edu.lingnan.service.Impl;
 
+import cn.edu.lingnan.mapper.TimeTableHistoryMapper;
 import cn.edu.lingnan.mapper.TimeTableMapper;
 import cn.edu.lingnan.pojo.TimeTable;
 import cn.edu.lingnan.service.TimeTableService;
@@ -55,8 +56,13 @@ public class TimeTableServiceImpl implements TimeTableService {
     public int deleteTimeTableByTid(int _tid) {
         int flag = 0;
         try(SqlSession session = MyBatisUtil.getSqlSession()){
-            TimeTableMapper mapper = session.getMapper(TimeTableMapper.class);
-            flag = mapper.deleteTimeTableByTid(_tid);
+            TimeTableMapper timeTableMapper = session.getMapper(TimeTableMapper.class);
+            TimeTableHistoryMapper  timeTableHistoryMapper = session.getMapper(TimeTableHistoryMapper.class);
+            List<TimeTable> list = timeTableMapper.queryTimeTableByTid(_tid);
+            flag = timeTableMapper.deleteTimeTableByTid(_tid);
+            for (TimeTable timeTable : list) {
+                timeTableHistoryMapper.insertTimeTable(timeTable);
+            }
             session.commit();
         }
         return flag;
@@ -66,8 +72,13 @@ public class TimeTableServiceImpl implements TimeTableService {
     public int deleteTimeTableByCid(String _cid) {
         int flag = 0;
         try(SqlSession session = MyBatisUtil.getSqlSession()){
-            TimeTableMapper mapper = session.getMapper(TimeTableMapper.class);
-            flag = mapper.deleteTimeTableByCid(_cid);
+            TimeTableMapper timeTableMapper = session.getMapper(TimeTableMapper.class);
+            TimeTableHistoryMapper  timeTableHistoryMapper = session.getMapper(TimeTableHistoryMapper.class);
+            List<TimeTable> list = timeTableMapper.queryTimeTableByCid(_cid);
+            flag = timeTableMapper.deleteTimeTableByCid(_cid);
+            for (TimeTable timeTable : list) {
+                timeTableHistoryMapper.insertTimeTable(timeTable);
+            }
             session.commit();
         }
         return flag;

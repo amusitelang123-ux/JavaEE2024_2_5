@@ -19,6 +19,8 @@ public interface TeacherMapper {
     public int deleteTeacherByTid(int _tid);
     @Insert("insert into teacher values (null,#{tname},#{tpassword},#{tright},#{tflag})")
     public int insertTeacher(Teacher teacher);
+    @Select("select tname from teacher where tid = #{_tid}")
+    public String queryTeacherTnameByTid(int _tid);
     //动态SQL
     public int updateTeacherByTid(Map<String,Object> _map);
     public List<Teacher> queryTeacher(Map<String,Object> _map);

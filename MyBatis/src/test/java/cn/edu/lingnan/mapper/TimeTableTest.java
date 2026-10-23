@@ -12,7 +12,9 @@ public class TimeTableTest {
     TimeTableService timeTableService = new TimeTableServiceImpl();
     @Test
     public void queryTimeTableAllTest(){
-        System.out.println(timeTableService.queryTimeTableAll().toString());
+        for (TimeTable timeTable : timeTableService.queryTimeTableAll()) {
+            System.out.println(timeTable.toString());
+        }
     }
     @Test
     public void queryTimeTableByTidTest(){
@@ -28,22 +30,22 @@ public class TimeTableTest {
     }
     @Test
     public void insertTimeTableTest(){
-        TimeTable timeTable = new TimeTable(3,"c03","厕所","24小时不间断",1);
+        TimeTable timeTable = new TimeTable(3,"c04","厕所","24小时不间断",1);
         System.out.println(timeTableService.insertTimeTable(timeTable));
     }
     @Test
     public void deleteTimeTableByTidTest(){
-        System.out.println(timeTableService.deleteTimeTableByTid(3));
+        System.out.println(timeTableService.deleteTimeTableByTid(4));
     }
     @Test
     public void deleteTimeTableByCidTest(){
-        System.out.println(timeTableService.deleteTimeTableByCid("c03"));
+        System.out.println(timeTableService.deleteTimeTableByCid("c04"));
     }
     @Test
     public void updateTimeTableByTidAndCidTest(){
         Map<String,Object> map = new HashMap<>();
         map.put("tid",3);
-        map.put("cid","c01");
+        map.put("cid","c03");
         map.put("classroom","公共厕所");
         map.put("classtime","持续宇宙热寂");
         map.put("ttflag",1);

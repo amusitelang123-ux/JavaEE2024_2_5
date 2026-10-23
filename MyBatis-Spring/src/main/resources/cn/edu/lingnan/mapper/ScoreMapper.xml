@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.lingnan.mapper.ScoreMapper">
+<!--    <select id="queryScoreCidBySid" parameterType="string" resultType="string">-->
+<!--        select cid from score where sid = #{_sid}-->
+<!--    </select>-->
+<!--    <select id="queryScoreNumByCid" parameterType="string" resultType="int">-->
+<!--        select count(*) as num from score where cid = #{_cid}-->
+<!--    </select>-->
+<!--    <delete id="deleteScoreBySid" parameterType="string">-->
+<!--        delete from score where sid = #{_sid}-->
+<!--    </delete>-->
+    <cache/>
+
+    <update id="updateScoreBySidAndCid" parameterType="map">
+        update score
+        <trim prefix="set" suffixOverrides=",">
+            <if test="score != null">
+                score = #{score},
+            </if>
+            <if test="scflag != null">
+                scflag = #{scflag}
+            </if>
+        </trim>
+        where sid = #{sid} and cid = #{cid}
+    </update>
+
+    <select id="queryScore" parameterType="map" resultType="score">
+        select * from score
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="sid != null">
+                sid = #{sid}
+            </if>
+            <if test="cid != null">
+                and cid = #{cid}
+            </if>
+            <if test="score != null">
+                and score = #{score}
+            </if>
+            <if test="scflag != null">
+                and scflag = ${scflag}
+            </if>
+        </trim>
+    </select>
+</mapper>

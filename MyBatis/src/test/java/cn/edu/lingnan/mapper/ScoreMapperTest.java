@@ -26,16 +26,16 @@ public class ScoreMapperTest {
 
     @Test
     public void insertScoreTest(){
-        Score score = new Score("s05","c05",100,1);
+        Score score = new Score("s04","c04",100,1);
         System.out.println(scoreService.insertScore(score));
     }
 
     @Test
     public void updateScoreBySidTest(){
         Map<String,Object> map = new HashMap<>();
-        map.put("sid","s05");
-        map.put("cid","c05");
-//        map.put("score",60);
+        map.put("sid","s04");
+        map.put("cid","c04");
+        map.put("score",60);
         map.put("scflag",1);
         System.out.println(scoreService.updateScoreBySidAndCid(map));
     }
@@ -43,10 +43,10 @@ public class ScoreMapperTest {
     @Test
     public void queryScoreTest(){
         Map<String,Object> map = new HashMap<>();
-//        map.put("sid","s05");
-        map.put("cid","c02");
-//        map.put("score",60);
-//        map.put("scflag",0);
+        map.put("sid","s04");
+        map.put("cid","c04");
+        map.put("score",60);
+        map.put("scflag",1);
         for (Score score : scoreService.queryScore(map)) {
             System.out.println(score.toString());
         }
@@ -54,6 +54,13 @@ public class ScoreMapperTest {
 
     @Test
     public void deleteScoreBySidTest(){
-        System.out.println(scoreService.deleteScoreBySid("s05"));
+        System.out.println(scoreService.deleteScoreBySid("s04"));
+    }
+
+    @Test
+    public void queryScoreAllTest(){
+        for (Score score : scoreService.queryScoreAll()) {
+            System.out.println(score.toString());
+        }
     }
 }

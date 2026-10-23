@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.lingnan.mapper.TeacherMapper">
+    <cache/>
+<!--    <select id="queryTeacherAll" resultType="teacher">-->
+<!--        select * from teacher-->
+<!--    </select>-->
+<!--    <select id="queryTeacherByName" resultType="teacher">-->
+<!--        select * from teacher where tname like concat('%', #{_tname}, '%')-->
+<!--    </select>-->
+    <update id="updateTeacherByTid" parameterType="map">
+        update teacher
+        <trim prefix="set" suffixOverrides=",">
+            <if test="tname != null">
+                tname = #{tname},
+            </if>
+            <if test="tpassword != null">
+                tpassword = #{tpassword},
+            </if>
+            <if test="tright != null">
+                tright = #{tright},
+            </if>
+            <if test="tflag != null">
+                tflag = #{tflag}
+            </if>
+        </trim>
+        where tid = #{tid}
+    </update>
+
+    <select id="queryTeacher" parameterType="map" resultType="teacher">
+        select * from teacher
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="tname != null">
+                tname like concat('%',#{tname},'%')
+            </if>
+            <if test="tright != null">
+               and tright = #{tright}
+            </if>
+            <if test="tflag != null">
+               and tflag = #{tflag}
+            </if>
+        </trim>
+    </select>
+</mapper>

@@ -51,14 +51,14 @@ public class StudentMapperTest {
     @Test
     public void insertStudentTest(){
         //请根据数据库实际情况传入正确参数
-        Student student=new Student("s06","柯比","1234",0,1);
+        Student student=new Student("s99","柯比","1234",0,1);
         System.out.println(studentService.insertStudent(student));
     }
 
     @Test
     public void updateStudentTest(){
         //请根据数据库实际情况传入正确参数
-        Student student = new Student("s06","柯比","123456",0,1);
+        Student student = new Student("s99","柯比","123456",0,1);
         System.out.println(studentService.updateStudent(student));
     }
 
@@ -66,7 +66,7 @@ public class StudentMapperTest {
     public void updateStudentPasswordTest(){
         //请根据数据库实际情况传入正确参数
         Map<String,Object> map=new HashMap<>();
-        map.put("sid","s06");
+        map.put("sid","s99");
         map.put("spassword","kebi123456");
         System.out.println(studentService.updateStudentPassword(map));
     }
@@ -74,7 +74,7 @@ public class StudentMapperTest {
     @Test
     public void deleteStudentTest(){
         //请根据数据库实际情况传入正确参数
-        System.out.println(studentService.deleteStudentBySid("s06"));
+        System.out.println(studentService.deleteStudentBySid("s99"));
     }
 
     @Test
@@ -89,7 +89,7 @@ public class StudentMapperTest {
     @Test
     public void updateStudentUseSetTest(){
         Map<String,Object> map=new HashMap<>();
-        map.put("sid","s05");
+        map.put("sid","s99");
         map.put("sname","cxk");
         map.put("spassword","cxk1234");
         map.put("sright",0);

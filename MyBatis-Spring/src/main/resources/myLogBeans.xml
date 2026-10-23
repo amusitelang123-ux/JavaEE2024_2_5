@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+		https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+
+    <bean id="myLog" class="cn.edu.lingnan.util.MyLog"/>
+    <bean id="beforeLog" class="cn.edu.lingnan.util.BeforeLog"/>
+    <bean id="afterLog" class="cn.edu.lingnan.util.AfterLog"/>
+
+    <aop:config>
+        <aop:pointcut id="myPointcut02" expression="execution(* cn.edu.lingnan.service.Impl..*(..))"/>
+        <aop:advisor advice-ref="myLog" pointcut-ref="myPointcut02"/>
+        <aop:advisor advice-ref="beforeLog" pointcut-ref="myPointcut02"/>
+        <aop:advisor advice-ref="afterLog" pointcut-ref="myPointcut02"/>
+    </aop:config>
+
+
+</beans>
